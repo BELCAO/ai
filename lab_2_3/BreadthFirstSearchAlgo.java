@@ -39,8 +39,37 @@ public class BreadthFirstSearchAlgo implements ISearchAlgo {
 
 	@Override
 	public Node execute(Node root, String start, String goal) {
-		// TODO Auto-generated method stub
-		return null;
+		 if (root == null) {
+		        return null;
+		    }
+
+		    Node startNode = null;
+		    Queue<Node> frontier = new LinkedList<>();
+		    List<Node> explored = new ArrayList<>();
+		    frontier.add(root);
+
+		    while (!frontier.isEmpty()) {
+		        Node current = frontier.poll();
+
+		        if (current.getLabel().equals(start)) {
+		            startNode = current;
+		        }
+
+		        if (startNode != null && current.getLabel().equals(goal)) {
+		            return current;
+		        }
+
+		        explored.add(current);
+
+		        for (Node child : current.getChildrenNodes()) {
+		            if (!frontier.contains(child) && !explored.contains(child)) {
+		                frontier.add(child);
+		                child.setParent(current);
+		            }
+		        }
+		    }
+
+		    return null;
 	}
 
 }

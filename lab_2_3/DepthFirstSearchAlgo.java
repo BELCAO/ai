@@ -38,8 +38,37 @@ public class DepthFirstSearchAlgo implements ISearchAlgo {
 
 	@Override
 	public Node execute(Node root, String start, String goal) {
-		// TODO Auto-generated method stub
-		return null;
+		if (root == null) {
+	        return null;
+	    }
+
+	    Node startNode = null;
+	    Stack<Node> frontier = new Stack<>();
+	    List<Node> explored = new ArrayList<>();
+	    frontier.push(root);
+
+	    while (!frontier.isEmpty()) {
+	        Node current = frontier.pop();
+
+	        if (current.getLabel().equals(start)) {
+	            startNode = current;
+	        }
+
+	        if (startNode != null && current.getLabel().equals(goal)) {
+	            return current;
+	        }
+
+	        explored.add(current);
+
+	        for (Node child : current.getChildrenNodes()) {
+	            if (!frontier.contains(child) && !explored.contains(child)) {
+	                frontier.push(child);
+	                child.setParent(current);
+	            }
+	        }
+	    }
+
+	    return null;
 	}
 
 }

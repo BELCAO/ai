@@ -24,33 +24,60 @@ public class Test {
 		    nodeD.addEdge(nodeH, 7);
 		    nodeE.addEdge(nodeG, 6);
 		    nodeF.addEdge(nodeG, 1);
-
-		    ISearchAlgo algo1 = new BreadthFirstSearchAlgo();
-		    Node result = algo1.execute(nodeS, "G");
 		    
+		    ISearchAlgo breadthFirstSearchAlgo = new BreadthFirstSearchAlgo();
+	        Node resultBread = breadthFirstSearchAlgo.execute(nodeS, "G");
+	        if (resultBread != null) {
+	        	System.out.println("BreadthFirstSearchAlgo: ");
+	            List<String> path = NodeUtils.printPath(resultBread);
+	            System.out.println(nodeS.getLabel() + " den G: " + String.join(" -> ", path)
+	            +" Tong chi phi: " + resultBread.getPathCost());
+	        } 
+	        ISearchAlgo depthFirstSearchAlgo = new DepthFirstSearchAlgo();
+	        Node resultDepth = depthFirstSearchAlgo.execute(nodeS, "G");
+	        if (resultDepth != null) {
+	        	System.out.println("DepthFirstSearchAlgo: ");
+	            List<String> path = NodeUtils.printPath(resultDepth);
+	            System.out.println(nodeS.getLabel() + " den G: " + String.join(" -> ", path)
+	            +" Tong chi phi: " + resultDepth.getPathCost());
+	        } 
+	      
+
+		    ISearchAlgo uniformCostSearchAlgo = new UniformCostSearchAlgo();
+	        Node resultUni = uniformCostSearchAlgo.execute(nodeS, "G");
+	        if (resultUni != null) {
+	        	System.out.println("UniformCostSecarch: ");
+	            // In đường dẫn
+	            List<String> path = NodeUtils.printPath(resultUni);
+	            System.out.println(nodeS.getLabel() + " den G: " + String.join(" -> ", path)
+	            +" Tong chi phi: " + resultUni.getPathCost());
+	        } 
+	     // In your Test class main method
+	        DepthLimitedSearchAlgo depthLimitedSearchAlgo = new DepthLimitedSearchAlgo();
+	        int limitedDepth = 3;  // Set your desired depth limit
+	        Node resultDepthLimited = depthLimitedSearchAlgo.execute(nodeS, "G", limitedDepth);
+	        System.out.println("DepthLimitedSearchAlgo: ");
+	        if (resultDepthLimited != null) {
+	            List<String> path = NodeUtils.printPath(resultDepthLimited);
+	            System.out.println(nodeS.getLabel() + " to G: " + String.join(" -> ", path)
+	                + " Total cost: " + resultDepthLimited.getPathCost() + " within depth: " + limitedDepth);
+	        } else {
+	            System.out.println("No path found to G within depth " + limitedDepth);
+	        }
+
+	        
+	        
+	       
+	    }
+	    
+	    
+	
+	    }
+	 
 		
-
-		    if (result != null) {
-		        List<String> path = NodeUtils.printPath(result);
-		        System.out.println("Path to G: " + String.join(" -> ", path));
-		    } else {
-		        System.out.println("Path to G not found.");
-		    }
-		    
-		    ISearchAlgo algo2 = new DepthFirstSearchAlgo();
-		    Node result2 = algo2.execute(nodeS, "G");
-		    
-		    if (result2 != null) {
-		        List<String> path2 = NodeUtils.printPath(result2);
-		        System.out.println("Path to G: " + String.join(" -> ", path2));
-		    } else {
-		        System.out.println("Path to G not found.");
-		    }
-		}
 	
 	
 
 
-	}
 
 
